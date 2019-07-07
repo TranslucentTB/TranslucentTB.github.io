@@ -2,5 +2,3 @@ theme: jekyll-theme-cayman
 
 title: TranslucentTB
 description: A lightweight utility that makes the Windows taskbar translucent/transparent.
-repository: TranslucentTB/TranslucentTB
-logo: assets/logo.png
