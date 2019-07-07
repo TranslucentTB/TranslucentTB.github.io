@@ -6,4 +6,4 @@ plugins:
 title: TranslucentTB
 description: A lightweight utility that makes the Windows taskbar translucent/transparent.
 repository: TranslucentTB/TranslucentTB
-logo: TODO
+logo: assets/logo.png
