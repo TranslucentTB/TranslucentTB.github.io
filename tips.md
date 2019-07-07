@@ -4,7 +4,7 @@
 
 TranslucentTB has an option to hide it, resulting in a better appearance when on the desktop. It also offers a dynamic option, which allows to hide it only when there is no maximised window.
 
-![animation](https://files.charlesmilette.net/ExtralargeVainAnnelid)
+<video autoplay="true" muted="true" loop="true" src="/assets/peek.mp4" />
 
 
 ### Color
