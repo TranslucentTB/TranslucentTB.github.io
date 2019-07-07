@@ -1,5 +1,8 @@
 ## Tips and tricks for a better looking taskbar
 
+Background from the recordings are [from TylerCreatesWorlds on DeviantArt](https://www.deviantart.com/tylercreatesworlds/art/The-Ghost-Nebula-301172187).
+
+
 ### Aero Peek Button
 
 TranslucentTB has an option to hide it, resulting in a better appearance when on the desktop. It also offers a dynamic option, which allows to hide it only when there is no maximised window.
