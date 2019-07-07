@@ -1,3 +1,9 @@
-theme: jekyll-theme-midnight
+remote-theme: mmistakes/minimal-mistakes
+minimal_mistakes_skin: dark
+plugins:
+  - jekyll-include-cache
+
 title: TranslucentTB
 description: A lightweight utility that makes the Windows taskbar translucent/transparent.
+repository: TranslucentTB/TranslucentTB
+logo: TODO
