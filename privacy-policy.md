@@ -1,6 +1,6 @@
 ## Privacy Policy
 
-Your use of this application means you have reviewed this policy and agree to the terms therein.
+Your use of this application means you have reviewed this policy and agree to the terms therein.  
 **Last updated:** July 8th, 2020
 
 
