@@ -23,10 +23,10 @@ This data is treated for proper function of the application and never sent onlin
 *This section only applies if you acquire the application via the Microsoft Store.*
 
 If the application crashes, built-in Microsoft Store telemetry features might send to the developer anonymized information such as:
-- Stack trace;
+- Stack trace of the crash;
 - System specifications;
 - List of processes running on the system;
-- Memory dumps of the application process, which might contain data collected for operation.
+- Memory dump of the application process, which might contain data collected for operation.
 
 This information will only be used only for debugging, will never be shared with third-parties, will only be acquired if required<sup>[2](#footnotes)</sup> and will then be deleted as soon as possible.
 
