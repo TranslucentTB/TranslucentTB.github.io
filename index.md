@@ -8,7 +8,6 @@ Take control of your taskbar! With TranslucentTB, you can give your taskbar a ne
 
 <!--GitHub Pages Watermark Remover-->
 <!--Added by imrolii, see how-to guide here: https://imrolii.github.io/remove-pages-watermark -->
-<script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
 <script>
   var x = document.getElementsByClassName("site-footer-credits"); 
   setTimeout(() => { x[0].remove(); }, 10); 
