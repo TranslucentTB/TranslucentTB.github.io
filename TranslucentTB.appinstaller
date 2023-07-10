@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AppInstaller
+	xmlns="http://schemas.microsoft.com/appx/appinstaller/2018"
+	Version="1.0.0.0"
+	Uri="https://sylveon.dev/TranslucentTB.appinstaller">
+
+	<MainBundle
+		Name="28017CharlesMilette.TranslucentTB"
+		Publisher="CN=04797BBC-C7BB-462F-9B66-331C81E27C0E"
+		Version="2023.1.0.0"
+		Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2023.1/bundle.msixbundle" />
+
+	<Dependencies>
+		<Package
+			Name="Microsoft.VCLibs.140.00.UWPDesktop"
+			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+			Version="14.0.30704.0"
+			ProcessorArchitecture="x64"
+			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2022.1/vclibs-desktop-x64.appx" />
+		<Package
+			Name="Microsoft.VCLibs.140.00.UWPDesktop"
+			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+			Version="14.0.30704.0"
+			ProcessorArchitecture="arm64"
+			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2022.1/vclibs-desktop-arm64.appx" />
+		<Package
+			Name="Microsoft.VCLibs.140.00"
+			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+			Version="14.0.30704.0"
+			ProcessorArchitecture="x64"
+			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2022.1/vclibs-uwp-x64.appx" />
+		<Package
+			Name="Microsoft.VCLibs.140.00"
+			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+			Version="14.0.30704.0"
+			ProcessorArchitecture="arm64"
+			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2022.1/vclibs-uwp-arm64.appx" />
+		<Package
+			Name="Microsoft.UI.Xaml.2.8"
+			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+			Version="8.2305.5001.0"
+			ProcessorArchitecture="x64"
+			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2023.1/winui-x64.appx" />
+		<Package
+			Name="Microsoft.UI.Xaml.2.8"
+			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+			Version="8.2305.5001.0"
+			ProcessorArchitecture="arm64"
+			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2023.1/winui-arm64.appx" />
+	</Dependencies>
+
+	<UpdateSettings>
+		<OnLaunch HoursBetweenUpdateChecks="24" />
+		<AutomaticBackgroundTask />
+		<ForceUpdateFromAnyVersion>true</ForceUpdateFromAnyVersion>
+	</UpdateSettings>
+
+</AppInstaller>
