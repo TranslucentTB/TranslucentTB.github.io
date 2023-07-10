@@ -2,7 +2,7 @@
 <AppInstaller
 	xmlns="http://schemas.microsoft.com/appx/appinstaller/2018"
 	Version="1.0.0.0"
-	Uri="https://sylveon.dev/TranslucentTB.appinstaller">
+	Uri="https://translucenttb.github.io/TranslucentTB.appinstaller">
 
 	<MainBundle
 		Name="28017CharlesMilette.TranslucentTB"
