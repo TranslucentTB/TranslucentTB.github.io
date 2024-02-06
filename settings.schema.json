@@ -44,25 +44,39 @@
       ]
     },
     "RuleSet": {
-      "type": "object",
-      "additionalProperties": {
-        "$ref": "#/$defs/TaskbarAppearance"
-      }
+      "allOf": [
+        {
+          "properties": {
+            "inactive": {
+              "$ref": "#/$defs/TaskbarAppearance"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/TaskbarAppearance"
+        }
+      ]
     },
     "RuledTaskbarAppearance": {
       "allOf": [
         {
           "properties": {
             "rules": {
-              "properties" : {
+              "properties": {
                 "window_class": {
-                  "$ref": "#/$defs/RuleSet"
+                  "additionalProperties": {
+                    "$ref": "#/$defs/RuleSet"
+                  }
                 },
                 "window_title": {
-                  "$ref": "#/$defs/RuleSet"
+                  "additionalProperties": {
+                    "$ref": "#/$defs/RuleSet"
+                  }
                 },
                 "process_name": {
-                  "$ref": "#/$defs/RuleSet"
+                  "additionalProperties": {
+                    "$ref": "#/$defs/RuleSet"
+                  }
                 }
               }
             }
