@@ -7,8 +7,8 @@
 	<MainBundle
 		Name="28017CharlesMilette.TranslucentTB"
 		Publisher="CN=04797BBC-C7BB-462F-9B66-331C81E27C0E"
-		Version="2023.2.0.0"
-		Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2023.2/bundle.msixbundle" />
+		Version="2024.1.0.0"
+		Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.1/bundle.msixbundle" />
 
 	<Dependencies>
 		<Package
@@ -38,15 +38,15 @@
 		<Package
 			Name="Microsoft.UI.Xaml.2.8"
 			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
-			Version="8.2305.5001.0"
+			Version="8.2310.30001.0"
 			ProcessorArchitecture="x64"
-			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2023.1/winui-x64.appx" />
+			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.1/winui-x64.appx" />
 		<Package
 			Name="Microsoft.UI.Xaml.2.8"
 			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
-			Version="8.2305.5001.0"
+			Version="8.2310.30001.0"
 			ProcessorArchitecture="arm64"
-			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2023.1/winui-arm64.appx" />
+			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.1/winui-arm64.appx" />
 	</Dependencies>
 
 	<UpdateSettings>
