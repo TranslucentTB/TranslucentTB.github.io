@@ -7,34 +7,34 @@
 	<MainBundle
 		Name="28017CharlesMilette.TranslucentTB"
 		Publisher="CN=04797BBC-C7BB-462F-9B66-331C81E27C0E"
-		Version="2024.1.0.0"
-		Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.1/bundle.msixbundle" />
+		Version="2024.3.0.0"
+		Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.3/bundle.msixbundle" />
 
 	<Dependencies>
 		<Package
 			Name="Microsoft.VCLibs.140.00.UWPDesktop"
 			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
-			Version="14.0.30704.0"
+			Version="14.0.33728.0"
 			ProcessorArchitecture="x64"
-			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2022.1/vclibs-desktop-x64.appx" />
+			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.3/vclibs-desktop-x64.appx" />
 		<Package
 			Name="Microsoft.VCLibs.140.00.UWPDesktop"
 			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
-			Version="14.0.30704.0"
+			Version="14.0.33728.0"
 			ProcessorArchitecture="arm64"
-			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2022.1/vclibs-desktop-arm64.appx" />
+			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.3/vclibs-desktop-arm64.appx" />
 		<Package
 			Name="Microsoft.VCLibs.140.00"
 			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
-			Version="14.0.30704.0"
+			Version="14.0.33519.0"
 			ProcessorArchitecture="x64"
-			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2022.1/vclibs-uwp-x64.appx" />
+			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.3/vclibs-uwp-x64.appx" />
 		<Package
 			Name="Microsoft.VCLibs.140.00"
 			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
-			Version="14.0.30704.0"
+			Version="14.0.33519.0"
 			ProcessorArchitecture="arm64"
-			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2022.1/vclibs-uwp-arm64.appx" />
+			Uri="https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.3/vclibs-uwp-arm64.appx" />
 		<Package
 			Name="Microsoft.UI.Xaml.2.8"
 			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
