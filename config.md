@@ -64,17 +64,12 @@ Custom color in hexadecimal format:
 - Format: `#RRGGBB` or `#RRGGBBAA` (with alpha channel)
 - Example: `"#00000000"` (fully transparent black)
 
-#### `show_peek` (boolean)
-Enable/disable desktop peek functionality:
-- `true`: Show desktop peek
-- `false`: Disable desktop peek
-
-#### `show_line` (boolean)
+#### `show_line` (boolean) **Windows 11 only**
 Show/hide the taskbar accent line:
 - `true`: Display accent line
 - `false`: Hide accent line
 
-#### `blur_radius` (number)
+#### `blur_radius` (number) **Windows 11 only**
 Blur effect intensity (when using blur accent):
 - Range: Typically 0.0 to 50.0
 - Example: `9.0`
@@ -167,7 +162,7 @@ Applied when Windows Search is open.
 
 ### 6. Task View Opened Appearance
 
-Applied when Task View (Alt+Tab) is open.
+Applied when Task View ( **⊞ Win+Tab ↹** ) is open.
 
 ```json
 "task_view_opened_appearance": {
@@ -260,7 +255,7 @@ Prevent saving configuration changes:
 #### `language` (string)
 Set application language:
 - Format: `"en-US"`, `"de-DE"`, etc.
-- Must follow ISO 639-1 language code format
+- Must follow [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) language code format
 
 ### Interface Options
 
@@ -423,15 +418,15 @@ Set logging level:
 2. **Test Changes**: Use different applications to test your configuration
 3. **Backup Configuration**: Keep a backup of working configurations
 4. **Performance**: Complex rules with many blur effects may impact system performance
-5. **Color Format**: Always use proper hexadecimal color format with alpha channel for transparency
-6. **JSON Validation**: Use a JSON validator or editor with syntax checking to avoid errors
+5. **Color Format**: Always use proper [hexadecimal color format](https://en.wikipedia.org/wiki/Web_colors) with alpha channel for transparency
+6. **JSON Validation**: Use a [JSON validator](https://jsonlint.com/) or editor with syntax checking to avoid errors
 7. **Schema Validation**: Include the `$schema` property to enable validation and autocomplete in editors
 
 ## Troubleshooting
 
 ### Common Issues
 
-- **Configuration not loading**: Check JSON syntax and schema validation
+- **Configuration not loading**: Check [JSON syntax](https://jsonlint.com/) and schema validation
 - **Rules not working**: Verify process names and window classes using tools like Spy++
 - **Performance issues**: Reduce `blur_radius` values or disable complex effects
 - **Color not applying**: Ensure proper hex color format with alpha channel
@@ -440,9 +435,9 @@ Set logging level:
 ### Debugging Tips (Advanced)
 
 1. **Check the logs**: Set `verbosity` to `"debug"` to see detailed information
-2. **Validate JSON**: Use online JSON validators or VS Code with the schema
+2. **Validate JSON**: Use online JSON validators like [JSONLint](https://jsonlint.com/) (Recommended) or [VS Code](https://code.visualstudio.com/) with the schema
 3. **Test incrementally**: Add one setting at a time to isolate issues
-4. **Use process monitor**: Tools like Process Monitor can help identify file access issues
+4. **Use process monitor**: Tools like [Process Monitor](https://docs.microsoft.com/en-us/sysinternals/downloads/procmon) can help identify file access issues
 5. **Check permissions**: Ensure TranslucentTB has write access to the config directory
 
 ### Getting Help
