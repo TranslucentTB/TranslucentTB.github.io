@@ -18,7 +18,7 @@ TranslucentTB uses a JSON configuration file to customize the appearance and beh
 
 ### Configuration File Location
 
-The configuration file should be saved as `settings.json` in the TranslucentTB application directory or user data folder.
+The configuration file should be saved as `settings.json` in `%LocalAppData%\Packages\28017CharlesMilette.TranslucentTB_v826wp6bftszj\RoamingState` for Store/MSIX installs, and in the same directory as the app executable for portable installs.
 
 ### Schema Reference
 
@@ -26,17 +26,17 @@ The configuration follows the JSON schema available at: `https://TranslucentTB.g
 
 ## Configuration Structure
 
-```json
+```jsonc
 {
   "$schema": "https://TranslucentTB.github.io/settings.schema.json",
-  "desktop_appearance": { ... },
-  "visible_window_appearance": { ... },
-  "maximized_window_appearance": { ... },
-  "start_opened_appearance": { ... },
-  "search_opened_appearance": { ... },
-  "task_view_opened_appearance": { ... },
-  "battery_saver_appearance": { ... },
-  "ignored_windows": { ... },
+  "desktop_appearance": { /* ... */ },
+  "visible_window_appearance": { /* ... */ },
+  "maximized_window_appearance": { /* ... */ },
+  "start_opened_appearance": { /* ... */ },
+  "search_opened_appearance": { /* ... */ },
+  "task_view_opened_appearance": { /* ... */ },
+  "battery_saver_appearance": { /* ... */ },
+  "ignored_windows": { /* ... */ },
   "hide_tray": false,
   "disable_saving": false,
   "verbosity": "warn",
@@ -78,7 +78,7 @@ Blur effect intensity (when using blur accent):
 
 ### 1. Desktop Appearance
 
-Applied when no windows are open or focused.
+Applied when no windows are open or focused. It can also be considered the "default" if no other appearance is enabled or active, so it cannot be disabled.
 
 ```json
 "desktop_appearance": {
@@ -162,7 +162,7 @@ Applied when Windows Search is open.
 
 ### 6. Task View Opened Appearance
 
-Applied when Task View ( **⊞ Win+Tab ↹** ) is open.
+Applied when Task View (<kbd>Win</kbd>+<kbd>Tab</kbd>) is open.
 
 ```json
 "task_view_opened_appearance": {
@@ -192,7 +192,12 @@ Applied when Windows Battery Saver mode is active.
 
 ## Window Rules
 
-For `visible_window_appearance` and `maximized_window_appearance`, you can define specific rules based on:
+For `visible_window_appearance` and `maximized_window_appearance`, you can define specific rules. The order of importance for rules is the following:
+- If the highest z-order maximized window triggers a maximized window rule, this rule is automatically used.
+- If there is no maximized window, TranslucentTB searches a rule for the current foreground (active) window and applies it to the monitor the window is on.
+
+For example, if you have a maximized window rule for VS Code, and a visible window rule for Discord, and VS Code is maximized but the Discord window is normal and in the foreground, then VSCode's window rule will apply.
+Once you minimize or make VSCode not maximized, Discord's rule will apply.
 
 ### Rule Types
 
@@ -222,7 +227,7 @@ For `visible_window_appearance` and `maximized_window_appearance`, you can defin
 }
 ```
 
-The `inactive` property defines the appearance when the targeted window is not focused.
+The `inactive` property defines the appearance when the targeted window is not focused. As explained above, visible window rules are only considered for the foreground window, meaning this has currently no effect for visible window rules.
 
 ### Ignored Windows
 
@@ -241,9 +246,11 @@ Configure windows that should be ignored by TranslucentTB:
 ### System Integration
 
 #### `hide_tray` (boolean)
-Hide the system tray area:
+Hide TranslucentTB's system tray icon:
 - `true`: Hide tray
 - `false`: Show tray (default)
+
+This option is hidden from the config file by default but can be manually added.
 
 #### `disable_saving` (boolean)
 Prevent saving configuration changes:
@@ -255,14 +262,16 @@ Prevent saving configuration changes:
 #### `language` (string)
 Set application language:
 - Format: `"en-US"`, `"de-DE"`, etc.
-- Must follow [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) language code format
+- Must be a [Windows Language Code Identifier](https://learn.microsoft.com/openspecs/windows_protocols/ms-lcid/c4ece252-4acf-4961-bf5f-f9adacfff27e)
 
 ### Interface Options
 
 #### `use_xaml_context_menu` (boolean)
 Use modern context menu style:
 - `true`: Use XAML-based context menu
-- `false`: Use classic context menu
+- `false`: Use classic Win32 context menu
+
+This option is hidden from the config file by default but can be manually added.
 
 ### Logging
 
@@ -274,11 +283,11 @@ Set logging level:
 - `"warn"`: Warnings only (default)
 - `"err"`: Errors only
 - `"critical"`: Critical errors only
-- `"off"`: No logging
+- `"off"`: No logging, unless a state dump is manually requested.
 
 ## Example Configurations
 
-### Fully Transparent Desktop
+### Fully Transparent Taskbar
 
 ```json
 {
@@ -417,28 +426,17 @@ Set logging level:
 1. **Start Simple**: Begin with basic appearance settings before adding complex rules
 2. **Test Changes**: Use different applications to test your configuration
 3. **Backup Configuration**: Keep a backup of working configurations
-4. **Performance**: Complex rules with many blur effects may impact system performance
-5. **Color Format**: Always use proper [hexadecimal color format](https://en.wikipedia.org/wiki/Web_colors) with alpha channel for transparency
-6. **JSON Validation**: Use a [JSON validator](https://jsonlint.com/) or editor with syntax checking to avoid errors
-7. **Schema Validation**: Include the `$schema` property to enable validation and autocomplete in editors
+4. **Color Format**: Always use proper [hexadecimal color format](https://en.wikipedia.org/wiki/Web_colors) with alpha channel for transparency
+5. **JSON Validation**: Use a [JSON validator](https://jsonlint.com/) or editor with syntax checking to avoid errors
+6. **Schema Validation**: Include the `$schema` property to enable validation and autocomplete in editors
 
 ## Troubleshooting
 
 ### Common Issues
 
-- **Configuration not loading**: Check [JSON syntax](https://jsonlint.com/) and schema validation
-- **Rules not working**: Verify process names and window classes using tools like Spy++
-- **Performance issues**: Reduce `blur_radius` values or disable complex effects
-- **Color not applying**: Ensure proper hex color format with alpha channel
+- **Error during configuration load**: Check [JSON syntax](https://jsonlint.com/) and schema validation. The error given by TranslucentTB should help.
+- **Rules not working**: Verify process names and window classes using tools like Spy++ or AutoHotKey's Window Spy.
 - **Settings not saving**: Check if `disable_saving` is set to `false`
-
-### Debugging Tips (Advanced)
-
-1. **Check the logs**: Set `verbosity` to `"debug"` to see detailed information
-2. **Validate JSON**: Use online JSON validators like [JSONLint](https://jsonlint.com/) (Recommended) or [VS Code](https://code.visualstudio.com/) with the schema
-3. **Test incrementally**: Add one setting at a time to isolate issues
-4. **Use process monitor**: Tools like [Process Monitor](https://docs.microsoft.com/en-us/sysinternals/downloads/procmon) can help identify file access issues
-5. **Check permissions**: Ensure TranslucentTB has write access to the config directory
 
 ### Getting Help
 
