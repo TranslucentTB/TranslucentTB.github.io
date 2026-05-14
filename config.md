@@ -1,3 +1,448 @@
-# TranslucentTB Config documentation
+# TranslucentTB Configuration Documentation
 
-TODO: write documentation
+TranslucentTB uses a JSON configuration file to customize the appearance and behavior of the Windows taskbar. This document explains all available configuration options and their usage.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Configuration Structure](#configuration-structure)
+- [Appearance Settings](#appearance-settings)
+- [Appearance Modes](#appearance-modes)
+- [Window Rules](#window-rules)
+- [Global Settings](#global-settings)
+- [Example Configurations](#example-configurations)
+- [Tips and Best Practices](#tips-and-best-practices)
+- [Troubleshooting](#troubleshooting)
+
+## Overview
+
+### Configuration File Location
+
+The configuration file should be saved as `settings.json` in `%LocalAppData%\Packages\28017CharlesMilette.TranslucentTB_v826wp6bftszj\RoamingState` for Store/MSIX installs, and in the same directory as the app executable for portable installs.
+
+### Schema Reference
+
+The configuration follows the JSON schema available at: `https://TranslucentTB.github.io/settings.schema.json`
+
+## Configuration Structure
+
+```jsonc
+{
+  "$schema": "https://TranslucentTB.github.io/settings.schema.json",
+  "desktop_appearance": { /* ... */ },
+  "visible_window_appearance": { /* ... */ },
+  "maximized_window_appearance": { /* ... */ },
+  "start_opened_appearance": { /* ... */ },
+  "search_opened_appearance": { /* ... */ },
+  "task_view_opened_appearance": { /* ... */ },
+  "battery_saver_appearance": { /* ... */ },
+  "ignored_windows": { /* ... */ },
+  "hide_tray": false,
+  "disable_saving": false,
+  "verbosity": "warn",
+  "language": "en-US",
+  "use_xaml_context_menu": false
+}
+```
+
+## Appearance Settings
+
+All appearance configurations support the following properties:
+
+### Basic Properties
+
+#### `accent` (string)
+The accent/transparency effect to apply:
+- `"normal"`: Windows default appearance
+- `"opaque"`: Solid, non-transparent taskbar
+- `"clear"`: Fully transparent taskbar
+- `"blur"`: Blurred transparency effect
+- `"acrylic"`: Windows 10/11 acrylic material effect
+
+#### `color` (string)
+Custom color in hexadecimal format:
+- Format: `#RRGGBB` or `#RRGGBBAA` (with alpha channel)
+- Example: `"#00000000"` (fully transparent black)
+
+#### `show_line` (boolean) **Windows 11 only**
+Show/hide the taskbar accent line:
+- `true`: Display accent line
+- `false`: Hide accent line
+
+#### `blur_radius` (number) **Windows 11 only**
+Blur effect intensity (when using blur accent):
+- Range: Typically 0.0 to 50.0
+- Example: `9.0`
+
+## Appearance Modes
+
+### 1. Desktop Appearance
+
+Applied when no windows are open or focused. It can also be considered the "default" if no other appearance is enabled or active, so it cannot be disabled.
+
+```json
+"desktop_appearance": {
+  "accent": "clear",
+  "color": "#00000000",
+  "show_peek": false,
+  "show_line": false,
+  "blur_radius": 9.0
+}
+```
+
+### 2. Visible Window Appearance
+
+Applied when windows are visible but not maximized.
+
+```json
+"visible_window_appearance": {
+  "enabled": false,
+  "accent": "clear",
+  "color": "#00000000",
+  "show_peek": true,
+  "show_line": false,
+  "blur_radius": 9.0,
+  "rules": {
+    "window_class": {},
+    "window_title": {},
+    "process_name": {}
+  }
+}
+```
+
+### 3. Maximized Window Appearance
+
+Applied when a window is maximized.
+
+```json
+"maximized_window_appearance": {
+  "enabled": true,
+  "accent": "clear",
+  "color": "#00000000",
+  "show_peek": true,
+  "show_line": false,
+  "blur_radius": 9.0,
+  "rules": {
+    "window_class": {},
+    "window_title": {},
+    "process_name": {}
+  }
+}
+```
+
+### 4. Start Menu Opened Appearance
+
+Applied when the Start menu is open.
+
+```json
+"start_opened_appearance": {
+  "enabled": false,
+  "accent": "normal",
+  "color": "#00000000",
+  "show_peek": true,
+  "show_line": true,
+  "blur_radius": 9.0
+}
+```
+
+### 5. Search Opened Appearance
+
+Applied when Windows Search is open.
+
+```json
+"search_opened_appearance": {
+  "enabled": true,
+  "accent": "normal",
+  "color": "#00000000",
+  "show_peek": true,
+  "show_line": true,
+  "blur_radius": 9.0
+}
+```
+
+### 6. Task View Opened Appearance
+
+Applied when Task View (<kbd>Win</kbd>+<kbd>Tab</kbd>) is open.
+
+```json
+"task_view_opened_appearance": {
+  "enabled": true,
+  "accent": "normal",
+  "color": "#00000000",
+  "show_peek": false,
+  "show_line": true,
+  "blur_radius": 9.0
+}
+```
+
+### 7. Battery Saver Appearance
+
+Applied when Windows Battery Saver mode is active.
+
+```json
+"battery_saver_appearance": {
+  "enabled": true,
+  "accent": "clear",
+  "color": "#00000000",
+  "show_peek": true,
+  "show_line": false,
+  "blur_radius": 9.0
+}
+```
+
+## Window Rules
+
+For `visible_window_appearance` and `maximized_window_appearance`, you can define specific rules. The order of importance for rules is the following:
+- If the highest z-order maximized window triggers a maximized window rule, this rule is automatically used.
+- If there is no maximized window, TranslucentTB searches a rule for the current foreground (active) window and applies it to the monitor the window is on.
+
+For example, if you have a maximized window rule for VS Code, and a visible window rule for Discord, and VS Code is maximized but the Discord window is normal and in the foreground, then VSCode's window rule will apply.
+Once you minimize or make VSCode not maximized, Discord's rule will apply.
+
+### Rule Types
+
+- **`window_class`**: Target specific window classes
+- **`window_title`**: Target windows by title
+- **`process_name`**: Target specific applications by process name
+
+### Rule Structure
+
+```json
+"rules": {
+  "process_name": {
+    "notepad.exe": {
+      "accent": "blur",
+      "color": "#FF000080",
+      "show_peek": false,
+      "show_line": true,
+      "blur_radius": 15.0,
+      "inactive": {
+        "accent": "clear",
+        "color": "#00000000",
+        "show_peek": true,
+        "show_line": false
+      }
+    }
+  }
+}
+```
+
+The `inactive` property defines the appearance when the targeted window is not focused. As explained above, visible window rules are only considered for the foreground window, meaning this has currently no effect for visible window rules.
+
+### Ignored Windows
+
+Configure windows that should be ignored by TranslucentTB:
+
+```json
+"ignored_windows": {
+  "window_class": ["ClassName1", "ClassName2"],
+  "window_title": ["Window Title 1", "Window Title 2"],
+  "process_name": ["process1.exe", "process2.exe"]
+}
+```
+
+## Global Settings
+
+### System Integration
+
+#### `hide_tray` (boolean)
+Hide TranslucentTB's system tray icon:
+- `true`: Hide tray
+- `false`: Show tray (default)
+
+This option is hidden from the config file by default but can be manually added.
+
+#### `disable_saving` (boolean)
+Prevent saving configuration changes:
+- `true`: Disable automatic saving
+- `false`: Enable automatic saving (default)
+
+### Localization
+
+#### `language` (string)
+Set application language:
+- Format: `"en-US"`, `"de-DE"`, etc.
+- Must be a [Windows Language Code Identifier](https://learn.microsoft.com/openspecs/windows_protocols/ms-lcid/c4ece252-4acf-4961-bf5f-f9adacfff27e)
+
+### Interface Options
+
+#### `use_xaml_context_menu` (boolean)
+Use modern context menu style:
+- `true`: Use XAML-based context menu
+- `false`: Use classic Win32 context menu
+
+This option is hidden from the config file by default but can be manually added.
+
+### Logging
+
+#### `verbosity` (string)
+Set logging level:
+- `"trace"`: Most verbose logging
+- `"debug"`: Debug information
+- `"info"`: General information
+- `"warn"`: Warnings only (default)
+- `"err"`: Errors only
+- `"critical"`: Critical errors only
+- `"off"`: No logging, unless a state dump is manually requested.
+
+## Example Configurations
+
+### Fully Transparent Taskbar
+
+```json
+{
+  "$schema": "https://TranslucentTB.github.io/settings.schema.json",
+  "desktop_appearance": {
+    "accent": "clear",
+    "color": "#00000000",
+    "show_peek": false,
+    "show_line": false
+  }
+}
+```
+
+### Blur Effect with Custom Color
+
+```json
+{
+  "$schema": "https://TranslucentTB.github.io/settings.schema.json",
+  "desktop_appearance": {
+    "accent": "blur",
+    "color": "#1E1E1E80",
+    "show_peek": true,
+    "show_line": true,
+    "blur_radius": 15.0
+  }
+}
+```
+
+### Application-Specific Rules
+
+```json
+{
+  "$schema": "https://TranslucentTB.github.io/settings.schema.json",
+  "maximized_window_appearance": {
+    "enabled": true,
+    "accent": "normal",
+    "rules": {
+      "process_name": {
+        "chrome.exe": {
+          "accent": "acrylic",
+          "color": "#000000AA",
+          "show_line": true
+        },
+        "notepad.exe": {
+          "accent": "clear",
+          "show_peek": false
+        }
+      }
+    }
+  }
+}
+```
+
+### Complete Configuration Example
+
+```json
+{
+  "$schema": "https://TranslucentTB.github.io/settings.schema.json",
+  "desktop_appearance": {
+    "accent": "clear",
+    "color": "#00000000",
+    "show_peek": false,
+    "show_line": false,
+    "blur_radius": 9.0
+  },
+  "visible_window_appearance": {
+    "enabled": false,
+    "accent": "clear",
+    "color": "#00000000",
+    "show_peek": true,
+    "show_line": false,
+    "blur_radius": 9.0,
+    "rules": {
+      "window_class": {},
+      "window_title": {},
+      "process_name": {}
+    }
+  },
+  "maximized_window_appearance": {
+    "enabled": true,
+    "accent": "clear",
+    "color": "#00000000",
+    "show_peek": true,
+    "show_line": false,
+    "blur_radius": 9.0,
+    "rules": {
+      "window_class": {},
+      "window_title": {},
+      "process_name": {}
+    }
+  },
+  "start_opened_appearance": {
+    "enabled": false,
+    "accent": "normal",
+    "color": "#00000000",
+    "show_peek": true,
+    "show_line": true,
+    "blur_radius": 9.0
+  },
+  "search_opened_appearance": {
+    "enabled": true,
+    "accent": "normal",
+    "color": "#00000000",
+    "show_peek": true,
+    "show_line": true,
+    "blur_radius": 9.0
+  },
+  "task_view_opened_appearance": {
+    "enabled": true,
+    "accent": "normal",
+    "color": "#00000000",
+    "show_peek": false,
+    "show_line": true,
+    "blur_radius": 9.0
+  },
+  "battery_saver_appearance": {
+    "enabled": true,
+    "accent": "clear",
+    "color": "#00000000",
+    "show_peek": true,
+    "show_line": false,
+    "blur_radius": 9.0
+  },
+  "ignored_windows": {
+    "window_class": [],
+    "window_title": [],
+    "process_name": []
+  },
+  "disable_saving": false,
+  "verbosity": "warn"
+}
+```
+
+## Tips and Best Practices
+
+1. **Start Simple**: Begin with basic appearance settings before adding complex rules
+2. **Test Changes**: Use different applications to test your configuration
+3. **Backup Configuration**: Keep a backup of working configurations
+4. **Color Format**: Always use proper [hexadecimal color format](https://en.wikipedia.org/wiki/Web_colors) with alpha channel for transparency
+5. **JSON Validation**: Use a [JSON validator](https://jsonlint.com/) or editor with syntax checking to avoid errors
+6. **Schema Validation**: Include the `$schema` property to enable validation and autocomplete in editors
+
+## Troubleshooting
+
+### Common Issues
+
+- **Error during configuration load**: Check [JSON syntax](https://jsonlint.com/) and schema validation. The error given by TranslucentTB should help.
+- **Rules not working**: Verify process names and window classes using tools like Spy++ or AutoHotKey's Window Spy.
+- **Settings not saving**: Check if `disable_saving` is set to `false`
+
+### Getting Help
+
+If you encounter issues not covered in this documentation:
+
+1. Check the [TranslucentTB Issues](https://github.com/TranslucentTB/TranslucentTB/issues) page
+2. Search for similar problems in existing issues
+3. Create a new issue with your configuration file and detailed description
+4. Include system information and TranslucentTB version
